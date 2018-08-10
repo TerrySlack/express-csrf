@@ -37,16 +37,20 @@
     });
 
 ###### 3   The Kicker:
-    For crsf to work properly, an initial request needs to be made to the server.  In this case, kick things off with either a joinus request or a login request.
-    YOU MUST ALWAYS RETURN THE CSRF WITH EACH REQUEST, ALONG WITH WHATEVER DATA NEEDS TO BE RETURNED, OR IT WILL FAIL.
+    For crsf to work properly, an initial request needs to be made to the server.  
+    In this case, kick things off with either a joinus request or a login request.
+    YOU MUST ALWAYS RETURN THE CSRF WITH EACH REQUEST, ALONG WITH WHATEVER DATA NEEDS TO
+    BE RETURNED, OR IT WILL FAIL.
 
 ###### 4   Client side
-    In your client script, in the then statement, or the respones from an await statement, part of the data will contain a key, with the crsf value.
+    In your client script, in the then statement, or the respones from an await statement,
+    part of the data will contain a key, with the crsf value.
     In this example, I call if csrf.  But you can call it whatever you want.
 
-    After the initial get, any other request Ie Post, Delete, Put, you must set the header 'XSRF-TOKEN', with the value of the returned csrf property in 
-    your data.  IF YOU DON'T YOU WILL GET A FORBIDDEN ERROR MESSAGE SENT TO WHATEVER MECHANISM USED TO TRAP ERRORS ON AJAX REQUESTS.
-    
+    After the initial get, any other request Ie Post, Delete, Put, you must set the header
+    'XSRF-TOKEN', with the value of the returned csrf property in
+    your data.  IF YOU DON'T YOU WILL GET A FORBIDDEN ERROR MESSAGE SENT TO WHATEVER
+    MECHANISM USED TO TRAP ERRORS ON AJAX REQUESTS.    
 
 
 
