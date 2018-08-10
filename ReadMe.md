@@ -49,8 +49,7 @@ const
     res.json({"csrf":req.csrfToken(),  data:"Some other data"});
   }); 
 ```
-    After the initial request comes down, you need to then set the header `XSRF-TOKEN`, with the value of the csrf property in the
-    returned data.
+###### After the initial request comes down, you need to then set the header `XSRF-TOKEN`, with the value of the csrf property in the returned data.
 
     Using a jQuery client, this process is illustrated
 ```javascript
