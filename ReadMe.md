@@ -8,14 +8,13 @@ npm install --save crsf cookie-parser express
 ###### 2   On the node server:
 ```javascript
 const 
-   //Better to get from an env file.>
+    //Better to get from an env file.>
     secret = "afc7efd0-e71b-41c7-9107-05e0f32e06db", 
     cookieParser = require('cookie-parser'),
     csrf = require('csurf'),
    
-     /*
-        Note the ignore methods tell the crsf lib to ignore Get, Head and Options requests.  Only use Get with Login and JoinUs
-    */
+    // Note the ignore methods tell the crsf lib to ignore Get, 
+    // Head and Options requests. 
     csrfProtection = csrf({
         ignoreMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
         cookie: { 
@@ -28,7 +27,8 @@ const
     }),
     app = express();
 
-    //cookieparser needs to be setup BEFORE csrfProtection is used by the app.
+    // cookieparser needs to be setup BEFORE csrfProtection is used
+    // by the app.
     app.use(cookieParser(secret));
     app.use(csrfProtection);
     app.use(function(err, req, res, next) {
@@ -38,7 +38,7 @@ const
     });
 ```
 ###### 3   The Kicker:
-    For crsf to work properly, an initial request needs to be made to the server.  
+⋅⋅⋅For crsf to work properly, an initial request needs to be made to the server.  
     In this case, kick things off with either a joinus request or a login request.
     YOU MUST ALWAYS RETURN THE CSRF WITH EACH REQUEST, ALONG WITH WHATEVER DATA NEEDS TO
     BE RETURNED, OR IT WILL FAIL.
