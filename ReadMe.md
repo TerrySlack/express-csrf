@@ -1,18 +1,19 @@
 #  Steps to setup csrf protection, using Node and a jQuery Client
 
 ###### 1   install `crsf, cookie-parser, express` with `yarn` or `npm`
+
+```
+npm install --save crsf cookie-parser express
+```
 ###### 2   On the node server:
-```
-    Require:
-        ######Create a secret.  Better to get from an env file.
-        - secret = "afc7efd0-e71b-41c7-9107-05e0f32e06db", 
-        - cookieParser = require('cookie-parser'),
-        - csrf = require('csurf')
-```
-```    
-    Create: Note the ignore methods tell the crsf lib to ignore Get, Head and 
-    Options requests.  
-    Only use Get with Login and JoinUs
+```javascript
+const 
+    <--Better to get from an env file.>
+    secret = "afc7efd0-e71b-41c7-9107-05e0f32e06db", 
+    cookieParser = require('cookie-parser'),
+    csrf = require('csurf'),
+   
+     <--Note the ignore methods tell the crsf lib to ignore Get, Head and Options requests.  Only use Get with Login and JoinUs>
     csrfProtection = csrf({
         ignoreMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
         cookie: { 
@@ -22,12 +23,10 @@
             sameSite: true, 
             httpOnly: true 
             }
-    });
-```
-    Create App and:
+    }),
     app = express();
 
-    //cookieparser needs to be setup BEFORE csrfProtection is used by the app.
+    #cookieparser needs to be setup BEFORE csrfProtection is used by the app.
     app.use(cookieParser(secret));
     app.use(csrfProtection);
     app.use(function(err, req, res, next) {
