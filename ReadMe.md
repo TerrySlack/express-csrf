@@ -10,10 +10,18 @@
         - csrf = require('csurf')
 ```
 ```    
-    Create: //Note this tells the crsf lib to ignore Get, Head and Options requests.  Only use Get with Login and JoinUs
+    Create: Note the ignore methods tell the crsf lib to ignore Get, Head and 
+    Options requests.  
+    Only use Get with Login and JoinUs
     csrfProtection = csrf({
         ignoreMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
-        cookie: { path: '/', key: '_csrf', signed: true, sameSite: true, httpOnly: true }
+        cookie: { 
+            path: '/', 
+            key: '_csrf', 
+            signed: true, 
+            sameSite: true, 
+            httpOnly: true 
+            }
     });
 ```
     Create App and:
