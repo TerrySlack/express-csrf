@@ -38,9 +38,7 @@ const
     });
 ```
 ###### 4   Node and Client side
-    For csrf to work properly, an initial requests needs to be made
-    to the server and the csrf token returned.  This needs to be done
-    with each subsequent request.
+######For csrf to work properly, an initial requests needs to be made to the server and the csrf token returned.  This needs to be done with each subsequent request.
 ```javascript
     //Node express, inside a route
     app.get('/someroute', function (req, res) {
@@ -49,9 +47,8 @@ const
     res.json({"csrf":req.csrfToken(),  data:"Some other data"});
   }); 
 ```
-###### After the initial request comes down, you need to then set the header `XSRF-TOKEN`, with the value of the csrf property in the returned data.
-
-    Using a jQuery client, this process is illustrated
+###### After the initial request comes down, you need to then set the header `XSRF-TOKEN`, with the value of the csrf property in the returned data.  
+###### Using a jQuery client, this process is illustrated
 ```javascript
     (function(){
         var
