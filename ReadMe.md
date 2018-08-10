@@ -40,8 +40,7 @@ const
 ###### 3   The Kicker:
    For crsf to work properly, an initial request needs to be made to the server.
 
-   YOU MUST ALWAYS RETURN THE CSRF WITH EACH REQUEST, ALONG WITH
-   WHATEVER DATA NEEDS TO BE RETURNED, OR IT WILL FAIL.
+   You must always return the csfr with each request and on the
 
 ###### 4   Client side
     In your client script, in the then statement, or the respones from an await statement,
