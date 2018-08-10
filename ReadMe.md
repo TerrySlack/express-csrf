@@ -38,7 +38,7 @@ const
     });
 ```
 ###### 4   Node and Client side
-######For csrf to work properly, an initial requests needs to be made to the server and the csrf token returned.  This needs to be done with each subsequent request.
+###### For csrf to work properly, an initial requests needs to be made to the server and the csrf token returned.  This needs to be done with each subsequent request.
 ```javascript
     //Node express, inside a route
     app.get('/someroute', function (req, res) {
