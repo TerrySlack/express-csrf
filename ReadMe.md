@@ -38,7 +38,7 @@ const
     });
 ```
 ###### 3   The Kicker:
-⋅⋅⋅For crsf to work properly, an initial request needs to be made to the server.  
+   For crsf to work properly, an initial request needs to be made to the server.  
     In this case, kick things off with either a joinus request or a login request.
     YOU MUST ALWAYS RETURN THE CSRF WITH EACH REQUEST, ALONG WITH WHATEVER DATA NEEDS TO
     BE RETURNED, OR IT WILL FAIL.
