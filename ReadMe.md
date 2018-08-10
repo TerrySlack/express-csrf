@@ -2,10 +2,10 @@
 
 ###### 1   install `crsf, cookie-parser, express` with `yarn` or `npm`
 ###### 2   On the node server:
-    Require:
-        secret = "afc7efd0-e71b-41c7-9107-05e0f32e06db", //<--Create a secret.  Better to get from an env file.
-        cookieParser = require('cookie-parser'),
-        csrf = require('csurf')
+    `Require`:
+        - secret = "afc7efd0-e71b-41c7-9107-05e0f32e06db", //<--Create a secret.  Better to get from an env file.
+        - cookieParser = require('cookie-parser'),
+        - csrf = require('csurf')
     Create: //Note this tells the crsf lib to ignore Get, Head and Options requests.  Only use Get with Login and JoinUs
     csrfProtection = csrf({
         ignoreMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
