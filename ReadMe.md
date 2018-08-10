@@ -37,21 +37,63 @@ const
         res.status(403).json({"error": `session has expired or tampered with ${err.code} ${err.message}`});
     });
 ```
-###### 3   The Kicker:
-   For crsf to work properly, an initial request needs to be made to the server.
+###### 4   Node and Client side
+    For csrf to work properly, an initial requests needs to be made
+    to the server and the csrf token returned.  This needs to be done
+    with each subsequent request.
+```javascript
+    //Node express, inside a route
+    app.get('/someroute', function (req, res) {
+    //Process and do whatever then
+    
+    res.json({"csrf":req.csrfToken(),  data:"Some other data"});
+  }); 
+```
+    After the initial request comes down, you need to then set the header `XSRF-TOKEN`, with the value of the csrf property in the
+    returned data.
 
-   You must always return the csfr with each request and on the
-
-###### 4   Client side
-    In your client script, in the then statement, or the respones from an await statement,
-    part of the data will contain a key, with the crsf value.
-    In this example, I call if csrf.  But you can call it whatever you want.
-
-    After the initial get, any other request Ie Post, Delete, Put, you must set the header
-    'XSRF-TOKEN', with the value of the returned csrf property in
-    your data.  IF YOU DON'T YOU WILL GET A FORBIDDEN ERROR MESSAGE SENT TO WHATEVER
-    MECHANISM USED TO TRAP ERRORS ON AJAX REQUESTS.    
-
-
-
-
+    Using a jQuery client, this process is illustrated
+```javascript
+    (function(){
+        var
+            app = $("#app");
+        //Hit the curl to test the passport cookie strategy out.
+        $("#btnTest").on( "click", function() {              
+            $.ajax({
+                url: "/api/comeonin",
+                method: "GET",
+                data: { uid: "Terry", password: "blarg" }
+            })
+            .done(function( data ) {
+                var 
+                    oldCrsf = data.csrf;
+                    
+                
+                app.html(`data is ${JSON.stringify(data)}`);
+                $.ajax({
+                    url: "/api/someDataRoute",
+                    method: "POST",
+                    data: { request: "Data on Jackie", user: data.user },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('XSRF-TOKEN', oldCrsf);
+                    }
+                })
+                .done(function( response ) {
+                    var 
+                        crsfStrings = `old crsf: ${oldCrsf} ::: new crsf:  ${response.crsf} and user role(s) are: ${response.data}`;
+                    app.append(crsfStrings);
+                })
+                .fail(function( jqXHR, textStatus, errorThrown ) {
+                    app.html(`Error occured: ${errorThrown}`);
+                });
+                
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) {
+                app.html(`Error occured: ${errorThrown}`);
+            });
+        });
+        
+    })();
+```
+   If you don't, you will get a forbidden error message
+   returned.

@@ -34,10 +34,7 @@ app.get('/api/comeonin', function (req, res) {
         uid = req.query["uid"],
         password = req.query["password"],
         user = {uid, otherData:"data that comes with successful login"};
-    console.log("In api and crsf is", req.csrfToken());
-    
-  
-      res.json({"csrf":req.csrfToken(),  user});
+    res.json({"csrf":req.csrfToken(),  user});
   });   
   
   app.listen(3500, () => {
